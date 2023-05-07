@@ -1,8 +1,24 @@
 ﻿#include <iostream>
+#include <filesystem>
+#include <fstream>
+#include <string>
+#include <sstream>
 #include "CalculateMinimumPrintingTime.h"
 
 
 using namespace std;
+
+
+class InvalidInputFileException : public std::exception {
+public:
+	InvalidInputFileException(const std::string& message) : m_message(message) {}
+
+	const char* what() const noexcept override {
+		return m_message.c_str();
+	}
+private:
+	std::string m_message;
+};
 
 
 int calcMinPrintingTime(CalcMinPrintingTimeParams params)
@@ -63,6 +79,57 @@ int calcMinPrintingTime(CalcMinPrintingTimeParams params)
 	}
 	return minimumPrintingTime;
 }
+
+
+int countValuesInLine(const std::string& input_line) {
+	std::istringstream iss(input_line);
+	int count = 0;
+	while (iss.good()) {
+		std::string value;
+		iss >> value;
+		if (!value.empty()) ++count;
+	}
+	return count;
+}
+
+
+void readInputFile(const std::string& input_file_path, CalcMinPrintingTimeParams* params)
+{
+	std::ifstream input_file(input_file_path);
+
+	string input_line;
+	if (std::getline(input_file, input_line)) {
+		std::istringstream iss(input_line);
+
+		iss >> params->numOfSheets
+			>> params->firstPrintingTime
+			>> params->secondPrintingTime
+			>> params->firstPrinterFailureRate
+			>> params->firstPrinterFailureProbability
+			>> params->firstPrinterRepairTime
+			>> params->secondPrinterFailureRate
+			>> params->secondPrinterFailureProbability
+			>> params->secondPrinterRepairTime;
+
+		if (countValuesInLine(input_line) != 9)
+		{
+			// Ошибка чтения параметров
+			throw InvalidInputFileException("Во входной строке неверное количество параметров. "
+				"Убедитесь, что введены 9 параметров, разделенных пробелами, в одной строке.\n");
+		}
+		if (iss.fail())
+		{
+			throw InvalidInputFileException("Во входной строке один из параметров имеет неправильный формат. "
+				"Убедитесь, что были введены 9 параметров в числовом формате, разделенных пробелами, в одной строке.\n");
+		}
+	}
+	else {
+		// Ошибка чтения строки из файла
+		throw InvalidInputFileException("Во входной строке неверное количество параметров. "
+			"Убедитесь, что введены 9 параметров, разделенных пробелами, в одной строке.\n");
+	}
+}
+
 
 int main()
 {

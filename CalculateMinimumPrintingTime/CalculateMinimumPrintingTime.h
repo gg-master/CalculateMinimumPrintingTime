@@ -15,4 +15,12 @@ struct CalcMinPrintingTimeParams
 	int secondPrinterRepairTime;
 };
 
+
 int calcMinPrintingTime(CalcMinPrintingTimeParams params);
+
+
+int countValuesInLine(const std::string& input_line);
+
+
+void readInputFile(const std::string& input_file_path, CalcMinPrintingTimeParams* params);
+
