@@ -131,12 +131,57 @@ void readInputFile(const std::string& input_file_path, CalcMinPrintingTimeParams
 }
 
 
-int main()
+int main(int argc, char* argv[])
 {
-	int N, X, Y, L1, L2, K1, K2;
-	float P1 = 0.2, P2 = 0.1;
+	setlocale(LC_ALL, "Russian");
+	if (argc != 3)
+	{
+		std::cerr << "Неправильно указаны параметры запуска. "
+			"Убедитесь, что параметры соотвествуют шаблону: \n"
+			<< argv[0] << " <path/to/input_file> <path/to/save_file>\n";
+		return 1;
+	}
 
-	std::cin >> N >> X >> Y >> L1 >> L2 >> K1 >> K2;
-	CalcMinPrintingTimeParams params = { N, X, Y, L1, P1, K1, L2, P2, K2 };
-	cout << calcMinPrintingTime(params);
+	std::ifstream input_file(argv[1]);
+
+	if (!input_file.is_open()) {
+		std::cerr << "Неверно указан файл с входными данными. Возможно, файл не существует." << argv[1] << '\n';
+		return 1;
+	}
+
+	filesystem::path output_path = filesystem::path(argv[2]);
+
+	if (!(filesystem::exists(output_path.parent_path()) &&
+		filesystem::is_directory(output_path.parent_path()) &&
+		output_path.has_filename()))
+	{
+		std::cerr << "Неверно указан файл для выходных данных. "
+			"Возможно указанного расположения не существует или нет прав на запись." << '\n';
+		return 1;
+	}
+	std::ofstream output_file(output_path);
+
+	if (!output_file.is_open()) {
+		std::cerr << "Неверно указан файл для выходных данных. "
+			"Возможно указанного расположения не существует или нет прав на запись." << '\n';
+		return 1;
+	}
+
+	CalcMinPrintingTimeParams params = {};
+
+	try {
+		readInputFile(argv[1], &params);
+	}
+	catch (const InvalidInputFileException& e) {
+		std::cerr << e.what();
+		return 1;
+	}
+
+	std::cout << calcMinPrintingTime(params) << '\n';
+
+	// Закрыть файлы
+	input_file.close();
+	output_file.close();
+
+	return 0;
 }
