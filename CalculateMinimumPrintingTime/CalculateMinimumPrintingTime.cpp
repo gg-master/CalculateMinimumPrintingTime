@@ -220,6 +220,11 @@ int main(int argc, char* argv[])
 
 	try {
 		readInputFile(argv[1], &params);
+		validateInputData(params);
+	}
+	catch (const InvalidValueException& e) {
+		std::cerr << e.what();
+		return 1;
 	}
 	catch (const InvalidInputFileException& e) {
 		std::cerr << e.what();
