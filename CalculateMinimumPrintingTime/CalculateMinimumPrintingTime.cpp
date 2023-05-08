@@ -9,6 +9,18 @@
 using namespace std;
 
 
+class InvalidValueException : public std::exception {
+public:
+	InvalidValueException(const std::string& message) : m_message(message) {}
+
+	const char* what() const noexcept override {
+		return m_message.c_str();
+	}
+private:
+	std::string m_message;
+};
+
+
 class InvalidInputFileException : public std::exception {
 public:
 	InvalidInputFileException(const std::string& message) : m_message(message) {}
@@ -128,6 +140,43 @@ void readInputFile(const std::string& input_file_path, CalcMinPrintingTimeParams
 		throw InvalidInputFileException("Во входной строке неверное количество параметров. "
 			"Убедитесь, что введены 9 параметров, разделенных пробелами, в одной строке.\n");
 	}
+}
+
+
+bool isInRange(double value, double left_border, double right_border)
+{
+	return left_border <= value && value <= right_border;
+}
+
+
+void validateInputData(const CalcMinPrintingTimeParams params)
+{
+	if (!isInRange(params.numOfSheets, 1, 2 * pow(10, 8)))
+		throw InvalidValueException("Параметр N не принадлежит диапазону [1..2*(10)^8].\n");
+
+	if (!isInRange(params.firstPrintingTime, 1, 10))
+		throw InvalidValueException("Параметр X не принадлежит диапазону [1..10].\n");
+
+	if (!isInRange(params.secondPrintingTime, 1, 10))
+		throw InvalidValueException("Параметр Y не принадлежит диапазону [1..10].\n");
+
+	if (!isInRange(params.firstPrinterFailureRate, 1, 10))
+		throw InvalidValueException("Параметр L1 не принадлежит диапазону [1..10].\n");
+
+	if (!isInRange(params.secondPrinterFailureRate, 1, 10))
+		throw InvalidValueException("Параметр L2 не принадлежит диапазону [1..10].\n");
+
+	if (!isInRange(params.firstPrinterFailureProbability, 0.01, 0.99))
+		throw InvalidValueException("Параметр P1 не принадлежит диапазону [0.01..0.99].\n");
+
+	if (!isInRange(params.secondPrinterFailureProbability, 0.01, 0.99))
+		throw InvalidValueException("Параметр P2 не принадлежит диапазону [0.01..0.99].\n");
+
+	if (!isInRange(params.firstPrinterRepairTime, 0, 10))
+		throw InvalidValueException("Параметр K1 не принадлежит диапазону [0..10].\n");
+
+	if (!isInRange(params.secondPrinterRepairTime, 0, 10))
+		throw InvalidValueException("Параметр K2 не принадлежит диапазону [0..10].\n");
 }
 
 
