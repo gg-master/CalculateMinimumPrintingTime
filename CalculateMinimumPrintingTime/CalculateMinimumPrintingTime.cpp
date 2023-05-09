@@ -35,6 +35,7 @@ private:
 
 int calcMinPrintingTime(CalcMinPrintingTimeParams params)
 {
+	// Самый быстрый принтер считаем первым
 	if (params.firstPrintingTime > params.secondPrintingTime)
 	{
 		swap(params.firstPrintingTime, params.secondPrintingTime);
@@ -45,27 +46,36 @@ int calcMinPrintingTime(CalcMinPrintingTimeParams params)
 
 	int minimumPrintingTime = 0;
 
+	// Печатаем первую страницу на самом быстром принтере
 	params.numOfSheets = params.numOfSheets - 1;
 	minimumPrintingTime += params.firstPrintingTime;
 
+	// Определяем таймеры времени для отсчета на печать 1 страницы
 	int firstPrintingTimer = 0, secondPrintintTimer = 0;
 
+	// Определяем общее время безотказной работы принтеров
 	int firstPrintrerStableOpTime = minimumPrintingTime;
 	int secondPrintrerStableOpTime = 0;
 
+	// Если время стабильной работы больше, чем частота поломок, то проверяем, сломался ли принтер
 	if (firstPrintrerStableOpTime >= params.firstPrinterFailureRate)
 	{
+		// Если принтер сломан, то сбрасываем таймер печати и общее время безотказной работы, 
+		// на время, требующееся на восстановление работы принтера 
 		if ((float)rand() / RAND_MAX <= params.firstPrinterFailureProbability)
 			firstPrintingTimer = firstPrintrerStableOpTime = -params.firstPrinterRepairTime;
 
+		// Если принтер не сломан, то сбрасываем время безотказной работы, 
+		// чтобы проверять поломки периодически
 		else firstPrintrerStableOpTime = 0;
 	}
-
+	// Пока не распечатали все страницы
 	while (params.numOfSheets > 0)
 	{
 		minimumPrintingTime++; firstPrintingTimer++; secondPrintintTimer++;
 		firstPrintrerStableOpTime++; secondPrintrerStableOpTime++;
 
+		// Проевряем работоспособность принтеров, после каждой секунды печати
 		if (firstPrintrerStableOpTime >= params.firstPrinterFailureRate)
 		{
 			if ((float)rand() / RAND_MAX <= params.firstPrinterFailureProbability)
@@ -78,6 +88,8 @@ int calcMinPrintingTime(CalcMinPrintingTimeParams params)
 				secondPrintintTimer = secondPrintrerStableOpTime = -params.secondPrinterRepairTime;
 			else  secondPrintrerStableOpTime = 0;
 		}
+
+		// Если прошло нужное время на печать одной страницы, то считаем, что страницу распечатали
 		if (firstPrintingTimer == params.firstPrintingTime)
 		{
 			params.numOfSheets--;
