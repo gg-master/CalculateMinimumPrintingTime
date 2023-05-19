@@ -126,12 +126,15 @@ int countValuesInLine(const std::string& input_line) {
 
 void readInputFile(const std::string& input_file_path, CalcMinPrintingTimeParams* params)
 {
+	// Открыть файл (автоматически закроется после выполнения функции)
 	std::ifstream input_file(input_file_path);
 
 	string input_line;
+	// Прочитать первую строку файла
 	if (std::getline(input_file, input_line)) {
 		std::istringstream iss(input_line);
 
+		// Разделить строку на 9 параметров и обновить параметр params
 		iss >> params->numOfSheets
 			>> params->firstPrintingTime
 			>> params->secondPrintingTime
@@ -142,20 +145,22 @@ void readInputFile(const std::string& input_file_path, CalcMinPrintingTimeParams
 			>> params->secondPrinterFailureProbability
 			>> params->secondPrinterRepairTime;
 
-		if (countValuesInLine(input_line) != 9)
+		if (countValuesInLine(input_line) != 9) // количество параметров в строке не равно 9
 		{
-			// Ошибка чтения параметров
+			// Ошибка чтения файла
 			throw InvalidInputFileException("Во входной строке неверное количество параметров. "
 				"Убедитесь, что введены 9 параметров, разделенных пробелами, в одной строке.\n");
 		}
-		if (iss.fail())
+		if (iss.fail()) // обнаружено несоответствие типов
 		{
+			// Ошибка чтения файла
 			throw InvalidInputFileException("Во входной строке один из параметров имеет неправильный формат. "
 				"Убедитесь, что были введены 9 параметров в числовом формате, разделенных пробелами, в одной строке.\n");
 		}
 	}
+	// Если прочитать не удалось
 	else {
-		// Ошибка чтения строки из файла
+		// Ошибка файла
 		throw InvalidInputFileException("Во входной строке неверное количество параметров. "
 			"Убедитесь, что введены 9 параметров, разделенных пробелами, в одной строке.\n");
 	}
