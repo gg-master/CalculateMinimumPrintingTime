@@ -25,6 +25,10 @@ class InvalidInputFileException;
 typedef bool (*isPrinterFunctionalPtr)(float);
 
 
+/*! Проверяет работоспособность принтера, используя рандом.
+* \param[in] failureProbability - вероятность выхода принтера из строя.
+* \return true, если принтер работает, иначе false.
+*/
 bool isPrinterFunctionalByRandom(float failureProbability);
 
 
