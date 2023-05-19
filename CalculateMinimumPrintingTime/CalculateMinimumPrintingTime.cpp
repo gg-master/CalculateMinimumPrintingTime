@@ -207,6 +207,8 @@ void validateInputData(const CalcMinPrintingTimeParams params)
 int main(int argc, char* argv[])
 {
 	setlocale(LC_ALL, "Russian");
+
+	// Если указано неверное количество аргементов командной строки
 	if (argc != 3)
 	{
 		std::cerr << "Неправильно указаны параметры запуска. "
@@ -217,6 +219,7 @@ int main(int argc, char* argv[])
 
 	std::ifstream input_file(argv[1]);
 
+	// Если не удалось открыть файл с входными данными
 	if (!input_file.is_open()) {
 		std::cerr << "Неверно указан файл с входными данными. Возможно, файл не существует." << argv[1] << '\n';
 		return 1;
@@ -224,6 +227,7 @@ int main(int argc, char* argv[])
 
 	filesystem::path output_path = filesystem::path(argv[2]);
 
+	// Если не удалось определить путь для выходного файла
 	if (!(filesystem::exists(output_path.parent_path()) &&
 		filesystem::is_directory(output_path.parent_path()) &&
 		output_path.has_filename()))
@@ -232,8 +236,10 @@ int main(int argc, char* argv[])
 			"Возможно указанного расположения не существует или нет прав на запись." << '\n';
 		return 1;
 	}
+
 	std::ofstream output_file(output_path);
 
+	// Если не удалось открыть файл для записи выходных данных
 	if (!output_file.is_open()) {
 		std::cerr << "Неверно указан файл для выходных данных. "
 			"Возможно указанного расположения не существует или нет прав на запись." << '\n';
@@ -243,6 +249,7 @@ int main(int argc, char* argv[])
 	CalcMinPrintingTimeParams params = {};
 
 	try {
+		// Считываем и валидируем входные параметры для задачи
 		readInputFile(argv[1], &params);
 		validateInputData(params);
 	}
@@ -255,9 +262,10 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	std::cout << calcMinPrintingTime(params) << '\n';
+	// Записываем рассчитанное минимальное время печати
+	output_file << calcMinPrintingTime(params) << '\n';
 
-	// Закрыть файлы
+	// Закрываем входной и выходной файлы
 	input_file.close();
 	output_file.close();
 
