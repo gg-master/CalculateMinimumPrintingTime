@@ -21,7 +21,7 @@ class InvalidValueException;
 class InvalidInputFileException;
 
 
-// ”казатель на функцию, провер€юща€ работоспособность принтеров
+// ”казатель на функцию, провер€ющую работоспособность принтера
 typedef bool (*isPrinterFunctionalPtr)(float);
 
 
@@ -58,7 +58,7 @@ void readInputFile(const std::string& input_file_path, CalcMinPrintingTimeParams
 * \param[in] value - провер€емое значение.
 * \param[in] left_border - лева€ граница диапазона.
 * \param[in] right_border - права€ граница диапазоне.
-* \return «начение true, если значение принадлежит диапазону, иначе - false.
+* \return true, если значение принадлежит диапазону, иначе - false.
 */
 bool isInRange(double value, double left_border, double right_border);
 

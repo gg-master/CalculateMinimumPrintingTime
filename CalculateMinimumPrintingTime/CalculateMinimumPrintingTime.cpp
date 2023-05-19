@@ -114,12 +114,20 @@ int calcMinPrintingTime(CalcMinPrintingTimeParams params, isPrinterFunctionalPtr
 
 int countValuesInLine(const std::string& input_line) {
 	std::istringstream iss(input_line);
+
+	// Считать, что количество подстрок в строке равно нулю
 	int count = 0;
+
+	// Пока возможно разбить строку по пробелу
 	while (iss.good()) {
 		std::string value;
-		iss >> value;
-		if (!value.empty()) ++count;
+		iss >> value; // Считать подстроку
+
+		// Если подстрока непустая, то инкрементировать количество подстрок в строке
+		if (!value.empty()) ++count; 
 	}
+
+	// Вернуть количество подстрок в строке
 	return count;
 }
 
