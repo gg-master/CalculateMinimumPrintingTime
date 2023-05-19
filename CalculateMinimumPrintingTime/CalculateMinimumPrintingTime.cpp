@@ -33,7 +33,13 @@ private:
 };
 
 
-int calcMinPrintingTime(CalcMinPrintingTimeParams params)
+bool isPrinterFunctionalByRandom(float failureProbability)
+{
+	return (float)rand() / RAND_MAX > failureProbability;
+}
+
+
+int calcMinPrintingTime(CalcMinPrintingTimeParams params, isPrinterFunctionalPtr isPrinterFunctional)
 {
 	// Самый быстрый принтер считаем первым
 	if (params.firstPrintingTime > params.secondPrintingTime)
@@ -62,13 +68,14 @@ int calcMinPrintingTime(CalcMinPrintingTimeParams params)
 	{
 		// Если принтер сломан, то сбрасываем таймер печати и общее время безотказной работы, 
 		// на время, требующееся на восстановление работы принтера 
-		if ((float)rand() / RAND_MAX <= params.firstPrinterFailureProbability)
+		if (!isPrinterFunctional(params.firstPrinterFailureProbability))
 			firstPrintingTimer = firstPrintrerStableOpTime = -params.firstPrinterRepairTime;
 
 		// Если принтер не сломан, то сбрасываем время безотказной работы, 
 		// чтобы проверять поломки периодически
 		else firstPrintrerStableOpTime = 0;
 	}
+
 	// Пока не распечатали все страницы
 	while (params.numOfSheets > 0)
 	{
@@ -78,13 +85,13 @@ int calcMinPrintingTime(CalcMinPrintingTimeParams params)
 		// Проевряем работоспособность принтеров, после каждой секунды печати
 		if (firstPrintrerStableOpTime >= params.firstPrinterFailureRate)
 		{
-			if ((float)rand() / RAND_MAX <= params.firstPrinterFailureProbability)
+			if (!isPrinterFunctional(params.firstPrinterFailureProbability))
 				firstPrintingTimer = firstPrintrerStableOpTime = -params.firstPrinterRepairTime;
 			else firstPrintrerStableOpTime = 0;
 		}
 		if (secondPrintrerStableOpTime >= params.secondPrinterFailureRate)
 		{
-			if ((float)rand() / RAND_MAX <= params.secondPrinterFailureProbability)
+			if (!isPrinterFunctional(params.secondPrinterFailureProbability))
 				secondPrintintTimer = secondPrintrerStableOpTime = -params.secondPrinterRepairTime;
 			else  secondPrintrerStableOpTime = 0;
 		}

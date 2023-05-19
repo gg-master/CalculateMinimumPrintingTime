@@ -21,12 +21,19 @@ class InvalidValueException;
 class InvalidInputFileException;
 
 
+// Указатель на функцию, проверяющая работоспособность принтеров
+typedef bool (*isPrinterFunctionalPtr)(float);
+
+
+bool isPrinterFunctionalByRandom(float failureProbability);
+
+
 /*! Рассчитывает минимальное время на печать копий документов на двух принтерах
 	с учетом вероятностей выхода принтеров из строя.
 * \param[in] params - параметры задачи, объединенные в структуру.
 * \return минимальное время на печать заданного количества копий документов.
 */
-int calcMinPrintingTime(CalcMinPrintingTimeParams params);
+int calcMinPrintingTime(CalcMinPrintingTimeParams params, isPrinterFunctionalPtr isPrinterFunctional = isPrinterFunctionalByRandom);
 
 
 /*! Подсчет количества подстрок в строке, разделенных пробелами или табуляцией.
