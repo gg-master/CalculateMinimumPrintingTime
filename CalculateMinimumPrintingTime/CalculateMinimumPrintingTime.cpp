@@ -45,7 +45,7 @@ int calcMinPrintingTime(CalcMinPrintingTimeParams params, isPrinterFunctionalPtr
 	if (params.firstPrintingTime > params.secondPrintingTime)
 	{
 		swap(params.firstPrintingTime, params.secondPrintingTime);
-		swap(params.firstPrinterFailureRate, params.secondPrinterFailureRate);
+		swap(params.firstPrinterUptime, params.secondPrinterUptime);
 		swap(params.firstPrinterFailureProbability, params.secondPrinterFailureProbability);
 		swap(params.firstPrinterRepairTime, params.secondPrinterRepairTime);
 	}
@@ -64,7 +64,7 @@ int calcMinPrintingTime(CalcMinPrintingTimeParams params, isPrinterFunctionalPtr
 	int secondPrintrerStableOpTime = 0;
 
 	// Если время стабильной работы больше, чем частота поломок, то проверяем, сломался ли принтер
-	if (firstPrintrerStableOpTime >= params.firstPrinterFailureRate)
+	if (firstPrintrerStableOpTime >= params.firstPrinterUptime)
 	{
 		// Если принтер сломан, то сбрасываем таймер печати и общее время безотказной работы, 
 		// на время, требующееся на восстановление работы принтера 
@@ -83,13 +83,13 @@ int calcMinPrintingTime(CalcMinPrintingTimeParams params, isPrinterFunctionalPtr
 		firstPrintrerStableOpTime++; secondPrintrerStableOpTime++;
 
 		// Проевряем работоспособность принтеров, после каждой секунды печати
-		if (firstPrintrerStableOpTime >= params.firstPrinterFailureRate)
+		if (firstPrintrerStableOpTime >= params.firstPrinterUptime)
 		{
 			if (!isPrinterFunctional(params.firstPrinterFailureProbability))
 				firstPrintingTimer = firstPrintrerStableOpTime = -params.firstPrinterRepairTime;
 			else firstPrintrerStableOpTime = 0;
 		}
-		if (secondPrintrerStableOpTime >= params.secondPrinterFailureRate)
+		if (secondPrintrerStableOpTime >= params.secondPrinterUptime)
 		{
 			if (!isPrinterFunctional(params.secondPrinterFailureProbability))
 				secondPrintintTimer = secondPrintrerStableOpTime = -params.secondPrinterRepairTime;
@@ -146,10 +146,10 @@ void readInputFile(const std::string& input_file_path, CalcMinPrintingTimeParams
 		iss >> params->numOfSheets
 			>> params->firstPrintingTime
 			>> params->secondPrintingTime
-			>> params->firstPrinterFailureRate
+			>> params->firstPrinterUptime
 			>> params->firstPrinterFailureProbability
 			>> params->firstPrinterRepairTime
-			>> params->secondPrinterFailureRate
+			>> params->secondPrinterUptime
 			>> params->secondPrinterFailureProbability
 			>> params->secondPrinterRepairTime;
 
@@ -192,10 +192,10 @@ void validateInputData(const CalcMinPrintingTimeParams params)
 	if (!isInRange(params.secondPrintingTime, 1, 10))
 		throw InvalidValueException("Параметр Y не принадлежит диапазону [1..10].\n");
 
-	if (!isInRange(params.firstPrinterFailureRate, 1, 10))
+	if (!isInRange(params.firstPrinterUptime, 1, 10))
 		throw InvalidValueException("Параметр L1 не принадлежит диапазону [1..10].\n");
 
-	if (!isInRange(params.secondPrinterFailureRate, 1, 10))
+	if (!isInRange(params.secondPrinterUptime, 1, 10))
 		throw InvalidValueException("Параметр L2 не принадлежит диапазону [1..10].\n");
 
 	if (!isInRange(params.firstPrinterFailureProbability, 0.01, 0.99))

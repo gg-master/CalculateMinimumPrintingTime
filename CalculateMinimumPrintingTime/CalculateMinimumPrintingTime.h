@@ -6,11 +6,11 @@ struct CalcMinPrintingTimeParams
 	int firstPrintingTime;
 	int secondPrintingTime;
 
-	int firstPrinterFailureRate;
+	int firstPrinterUptime;
 	float firstPrinterFailureProbability;
 	int firstPrinterRepairTime;
 
-	int secondPrinterFailureRate;
+	int secondPrinterUptime;
 	float secondPrinterFailureProbability;
 	int secondPrinterRepairTime;
 };
