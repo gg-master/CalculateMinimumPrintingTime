@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <random>
 #include "CalculateMinimumPrintingTime.h"
 
 
@@ -35,7 +36,11 @@ private:
 
 bool isPrinterFunctionalByRandom(float failureProbability)
 {
-	return (float)rand() / RAND_MAX > failureProbability;
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_real_distribution<double> dis(0.0, 1.0);
+
+	return dis(gen) > failureProbability;
 }
 
 
@@ -63,7 +68,7 @@ int calcMinPrintingTime(CalcMinPrintingTimeParams params, isPrinterFunctionalPtr
 	int firstPrintrerStableOpTime = minimumPrintingTime;
 	int secondPrintrerStableOpTime = 0;
 
-	// Если время стабильной работы больше, чем частота поломок, то проверяем, сломался ли принтер
+	// Если время стабильной работы больше, чем время безотказной работы, то проверяем, сломался ли принтер
 	if (firstPrintrerStableOpTime >= params.firstPrinterUptime)
 	{
 		// Если принтер сломан, то сбрасываем таймер печати и общее время безотказной работы, 
