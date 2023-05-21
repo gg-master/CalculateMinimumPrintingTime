@@ -31,27 +31,35 @@ bool isPrinterFunctionalExceptMaxBreakdownCount(float failureProbability)
 		// —читаем, что первый принтер с указанной веро€тностью
 		printers_probability[0] = failureProbability;
 	}
-	// »наче
+	// »наче если не определен второй принтер
 	else if (printers_probability[1] == 0)
 	{
+		// —читаем, что второй принтер с указанной веро€тностью
 		printers_probability[1] = failureProbability;
 	}
+	// ≈сли веро€тность равна веро€тности первого принтера
 	if (failureProbability == printers_probability[0])
 	{
+		// ≈сли счетчик выходов из стро€ меньше максимального количества числа поломок
 		if (breakdown_counters[0] < max_breakdowns)
 		{
+			// —читаем, что принтер сломалс€
 			breakdown_counters[0]++;
 			return false;
 		}
 	}
+	// »наче если веро€тность равна веро€тности второго принтера
 	else if (failureProbability == printers_probability[1])
 	{
+		// ≈сли счетчик выходов из стро€ меньше максимального количества числа поломок
 		if (breakdown_counters[1] < max_breakdowns)
 		{
+			// —читаем, что принтер сломалс€
 			breakdown_counters[1]++;
 			return false;
 		}
 	}
+	// ¬ернуть истину, сообщающую, что принтер работает
 	return true;
 }
 
