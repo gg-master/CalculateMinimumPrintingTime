@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test_validateInputData", "T
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test_countValuesInLine", "Test_countValuesInLine\Test_countValuesInLine.vcxproj", "{783758FB-535C-4B58-ADB5-2A83EF3AE312}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test_isInRange", "Test_isInRange\Test_isInRange.vcxproj", "{F70F76D8-CA88-4D2B-B63C-73FFAAD85610}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -61,6 +63,14 @@ Global
 		{783758FB-535C-4B58-ADB5-2A83EF3AE312}.Release|x64.Build.0 = Release|x64
 		{783758FB-535C-4B58-ADB5-2A83EF3AE312}.Release|x86.ActiveCfg = Release|Win32
 		{783758FB-535C-4B58-ADB5-2A83EF3AE312}.Release|x86.Build.0 = Release|Win32
+		{F70F76D8-CA88-4D2B-B63C-73FFAAD85610}.Debug|x64.ActiveCfg = Debug|x64
+		{F70F76D8-CA88-4D2B-B63C-73FFAAD85610}.Debug|x64.Build.0 = Debug|x64
+		{F70F76D8-CA88-4D2B-B63C-73FFAAD85610}.Debug|x86.ActiveCfg = Debug|Win32
+		{F70F76D8-CA88-4D2B-B63C-73FFAAD85610}.Debug|x86.Build.0 = Debug|Win32
+		{F70F76D8-CA88-4D2B-B63C-73FFAAD85610}.Release|x64.ActiveCfg = Release|x64
+		{F70F76D8-CA88-4D2B-B63C-73FFAAD85610}.Release|x64.Build.0 = Release|x64
+		{F70F76D8-CA88-4D2B-B63C-73FFAAD85610}.Release|x86.ActiveCfg = Release|Win32
+		{F70F76D8-CA88-4D2B-B63C-73FFAAD85610}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
