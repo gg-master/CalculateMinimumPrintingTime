@@ -10,30 +10,6 @@
 using namespace std;
 
 
-class InvalidValueException : public std::exception {
-public:
-	InvalidValueException(const std::string& message) : m_message(message) {}
-
-	const char* what() const noexcept override {
-		return m_message.c_str();
-	}
-private:
-	std::string m_message;
-};
-
-
-class InvalidInputFileException : public std::exception {
-public:
-	InvalidInputFileException(const std::string& message) : m_message(message) {}
-
-	const char* what() const noexcept override {
-		return m_message.c_str();
-	}
-private:
-	std::string m_message;
-};
-
-
 bool isPrinterFunctionalByRandom(float failureProbability)
 {
 	std::random_device rd;

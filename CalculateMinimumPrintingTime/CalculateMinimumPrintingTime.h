@@ -16,9 +16,28 @@ struct CalcMinPrintingTimeParams
 };
 
 
-class InvalidValueException;
+class InvalidValueException : public std::exception {
+public:
+	InvalidValueException(const std::string& message) : m_message(message) {}
 
-class InvalidInputFileException;
+	const char* what() const noexcept override {
+		return m_message.c_str();
+	}
+private:
+	std::string m_message;
+};
+
+
+class InvalidInputFileException : public std::exception {
+public:
+	InvalidInputFileException(const std::string& message) : m_message(message) {}
+
+	const char* what() const noexcept override {
+		return m_message.c_str();
+	}
+private:
+	std::string m_message;
+};
 
 
 // ”казатель на функцию, провер€ющую работоспособность принтера
