@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test_readInputFile", "Test_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test_validateInputData", "Test_validateInputData\Test_validateInputData.vcxproj", "{D649E85F-616E-4191-B832-7B92B6AF0DC1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test_countValuesInLine", "Test_countValuesInLine\Test_countValuesInLine.vcxproj", "{783758FB-535C-4B58-ADB5-2A83EF3AE312}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{D649E85F-616E-4191-B832-7B92B6AF0DC1}.Release|x64.Build.0 = Release|x64
 		{D649E85F-616E-4191-B832-7B92B6AF0DC1}.Release|x86.ActiveCfg = Release|Win32
 		{D649E85F-616E-4191-B832-7B92B6AF0DC1}.Release|x86.Build.0 = Release|Win32
+		{783758FB-535C-4B58-ADB5-2A83EF3AE312}.Debug|x64.ActiveCfg = Debug|x64
+		{783758FB-535C-4B58-ADB5-2A83EF3AE312}.Debug|x64.Build.0 = Debug|x64
+		{783758FB-535C-4B58-ADB5-2A83EF3AE312}.Debug|x86.ActiveCfg = Debug|Win32
+		{783758FB-535C-4B58-ADB5-2A83EF3AE312}.Debug|x86.Build.0 = Debug|Win32
+		{783758FB-535C-4B58-ADB5-2A83EF3AE312}.Release|x64.ActiveCfg = Release|x64
+		{783758FB-535C-4B58-ADB5-2A83EF3AE312}.Release|x64.Build.0 = Release|x64
+		{783758FB-535C-4B58-ADB5-2A83EF3AE312}.Release|x86.ActiveCfg = Release|Win32
+		{783758FB-535C-4B58-ADB5-2A83EF3AE312}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
