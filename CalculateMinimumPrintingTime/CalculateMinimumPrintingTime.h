@@ -54,6 +54,8 @@ bool isPrinterFunctionalByRandom(float failureProbability);
 /*! –ассчитывает минимальное врем€ на печать копий документов на двух принтерах
 	с учетом веро€тностей выхода принтеров из стро€.
 * \param[in] params - параметры задачи, объединенные в структуру.
+* \param[in] isPrinterFunctional - функци€, вызываема€ дл€ проверки работоспособности принтера.
+ѕо умолчанию используетс€ функци€ проверки рандомом.
 * \return минимальное врем€ на печать заданного количества копий документов.
 */
 int calcMinPrintingTime(CalcMinPrintingTimeParams params, isPrinterFunctionalPtr isPrinterFunctional = isPrinterFunctionalByRandom);
