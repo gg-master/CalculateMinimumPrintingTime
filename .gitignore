@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/CalculateMinimumPrintingTime/html
+/docbook
+/man/man3
+/html
