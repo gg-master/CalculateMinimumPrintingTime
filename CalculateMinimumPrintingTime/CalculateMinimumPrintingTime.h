@@ -18,7 +18,7 @@ struct CalcMinPrintingTimeParams
 
 class InvalidValueException : public std::exception {
 public:
-	InvalidValueException(const std::string& message) : m_message(message) {}
+	explicit InvalidValueException(const std::string& message) : m_message(message) {}
 
 	const char* what() const noexcept override {
 		return m_message.c_str();
@@ -30,7 +30,7 @@ private:
 
 class InvalidInputFileException : public std::exception {
 public:
-	InvalidInputFileException(const std::string& message) : m_message(message) {}
+	explicit InvalidInputFileException(const std::string& message) : m_message(message) {}
 
 	const char* what() const noexcept override {
 		return m_message.c_str();
@@ -88,4 +88,4 @@ bool isInRange(double value, double left_border, double right_border);
 	При провале проверки, выбрасывает ошибку валидации.
 * \param[in] params - валидируемые параметры задачи, объединенные в структуру.
 */
-void validateInputData(const CalcMinPrintingTimeParams params);
+void validateInputData(const CalcMinPrintingTimeParams& params);

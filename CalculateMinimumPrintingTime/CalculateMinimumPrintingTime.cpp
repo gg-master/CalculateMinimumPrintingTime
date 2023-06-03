@@ -158,7 +158,7 @@ bool isInRange(double value, double left_border, double right_border)
 }
 
 
-void validateInputData(const CalcMinPrintingTimeParams params)
+void validateInputData(const CalcMinPrintingTimeParams& params)
 {
 	if (!isInRange(params.numOfSheets, 1, 2 * pow(10, 8)))
 		throw InvalidValueException("Параметр N не принадлежит диапазону [1..2*(10)^8].\n");
