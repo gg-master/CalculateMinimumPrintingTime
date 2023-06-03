@@ -365,3 +365,6 @@ FodyWeavers.xsd
 /docbook
 /man/man3
 /html
+/cpp_check-cppcheck-build-dir
+/CalculateMinimumPrintingTime/CalculateMinimumPrintingTime.smp
+/cpp_check.cppcheck
