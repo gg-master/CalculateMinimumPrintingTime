@@ -12,11 +12,7 @@ using namespace std;
 
 bool isPrinterFunctionalByRandom(float failureProbability)
 {
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_real_distribution<double> dis(0.0, 1.0);
-
-	return dis(gen) > failureProbability;
+	return (float)rand() / RAND_MAX > failureProbability;
 }
 
 
@@ -195,6 +191,7 @@ void validateInputData(const CalcMinPrintingTimeParams params)
 
 int main(int argc, char* argv[])
 {
+	srand(time(NULL));
 	setlocale(LC_ALL, "Russian");
 
 	// Если указано неверное количество аргементов командной строки
