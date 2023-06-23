@@ -13,7 +13,7 @@ namespace TestvalidateInputData
 		
 		TEST_METHOD(sampleTest)
 		{
-			CalcMinPrintingTimeParams res_params = { 4, 1, 1, 1, 0.2, 3, 1, 0.6, 6};
+			CalcMinPrintingTimeParams res_params = { 4, 1, 1, 1, 0.2, 3, 1, 0.6, 6 };
 
 			bool exceptionThrown = false;
 			try {
